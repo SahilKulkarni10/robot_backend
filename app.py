@@ -161,10 +161,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Root endpoint
-@app.get("/")
-def read_root():
-    return {"message": "Welcome to the Robot Backend API!"}
+# # Root endpoint
+# @app.get("/")
+# def read_root():
+#     return {"message": "Welcome to the Robot Backend API!"}
+
+
 
 # Load initial robot data from the JSON file
 with open("fake_robot_data.json", "r") as f:
