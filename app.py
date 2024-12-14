@@ -78,6 +78,8 @@ import uvicorn
 
 app = FastAPI()
 
+CORS(app, origins="https://neon-beignet-8da367.netlify.app/")
+
 # Middleware for CORS (allows the frontend to access the backend)
 app.add_middleware(
     CORSMiddleware,
