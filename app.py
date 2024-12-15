@@ -11,13 +11,15 @@ app = FastAPI()
 # Middleware for CORS (allows the frontend to access the backend)
 app.add_middleware(
     CORSMiddleware,
-    # allow_origins=["http://127.0.0.1:3000", "https://neon-beignet-8da367.netlify.app/"],  # Add the URL of your frontend
-    allow_origins = ["http://127.0.0.1:3000", "https://neon-beignet-8da367.netlify.app/","http://localhost:5173"]
+    allow_origins=[
+        "http://127.0.0.1:3000", 
+        "https://neon-beignet-8da367.netlify.app/",
+        "http://localhost:5173"
+    ],  # Add the URLs of your frontends
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["*"],  # Allow all HTTP methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all headers
 )
-
 # # Root endpoint
 # @app.get("/")
 # def read_root():
