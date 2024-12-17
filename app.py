@@ -15,12 +15,11 @@ app.add_middleware(
         "http://127.0.0.1:3000", 
         "https://neon-beignet-8da367.netlify.app",
         "http://localhost:5173"
-    ],  # Frontend URLs
+    ],  
     allow_credentials=True,
     allow_methods=["*"],  
     allow_headers=["*"],  
 )
-
 
 
 @app.get("/")
@@ -45,11 +44,17 @@ async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
     try:
         while True:
-
             for robot in robot_data:
-                robot["Battery Percentage"] = max(
-                    0, robot.get("Battery Percentage", 100) - random.randint(0, 5)
-                )
+             
+                if robot.get("Battery Percentage", 100) == 0:
+                    robot["Battery Percentage"] = 100  
+                else:
+                    
+                    robot["Battery Percentage"] = max(
+                        0, robot["Battery Percentage"] - random.randint(0, 5)
+                    )
+
+              
                 robot["CPU Usage"] = random.randint(0, 100)
                 robot["RAM Consumption"] = random.randint(500, 8000)
                 robot["Location Coordinates"] = [
@@ -58,7 +63,8 @@ async def websocket_endpoint(websocket: WebSocket):
                 ]
                 robot["Last Updated"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-            await websocket.send_json(robot_data)  
+      
+            await websocket.send_json(robot_data)
             await asyncio.sleep(5)  
     except WebSocketDisconnect:
         print("WebSocket client disconnected.")
